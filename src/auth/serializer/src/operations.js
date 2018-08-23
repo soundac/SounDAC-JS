@@ -161,11 +161,17 @@ const vote = new Serializer(
 }
 );
 
+var content_metadata_album_master_album_artist = new Serializer("content_metadata_album_master_album_artist", {
+    artist: optional(string),
+    aliases: optional(array(string)),
+    ISNI: optional(uint64)
+  });
+
 const content_metadata_album_master = new Serializer( 
     "content_metadata_album_master", {
     part_of_album: bool,
     album_title: string,
-    album_artist: array(string),
+    album_artist: array(content_metadata_album_master_album_artist),
     genre_1: uint32,
     genre_2: optional(uint32),
     country_of_origin: string,

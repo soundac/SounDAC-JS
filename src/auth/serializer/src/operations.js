@@ -161,7 +161,8 @@ const vote = new Serializer(
 }
 );
 
-var content_metadata_album_master_album_artist = new Serializer("content_metadata_album_master_album_artist", {
+var content_metadata_album_master_album_artist = new Serializer(
+    "content_metadata_album_master_album_artist", {
     artist: optional(string),
     aliases: optional(array(string)),
     ISNI: optional(uint64)

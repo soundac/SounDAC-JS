@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
 
-        <h1 id="Testing"></h1>
-        <title>Testing</title>
-        <center>
+<head>
+    <meta charset="utf-8" />
+
+    <h1 id="Testing"></h1>
+    <title>Testing</title>
+    <center>
         <style>
             #result_zone strong {
                 color: white;
                 background-color: black;
                 padding: 2px;
             }
+
             body {
                 border-style: double;
 
             }
+
             #credits {
                 color: white;
                 background-color: green;
                 margin: 5px;
             }
+
             #NodeData {
                 margin: 20px;
                 background-color: green;
@@ -31,49 +35,63 @@
 
         <script src="./dist/muse.min.js"></script>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        </section>
-    </center>
-    <br/>
-    <br/>
-        <script>
+    <script>
+        // The username and activekey is requested, stored in the var username and displayed in the title
 
-            // The username and activekey is requested, stored in the var username and displayed in the title
+        var username = 'dom';
 
-            var username = null;
+        //muse activekey is requested and stored in var activekey this means it is only local cache and when this page is cache cleared the activekey is gone.
 
-            //muse activekey is requested and stored in var activekey this means it is only local cache and when this page is cache cleared the activekey is gone.
+        var activekey = '5JvihjWwJWNvycTfAPozTw382wBJsmsFGF3mHvaJ3hioyTGFoDB';
 
-            var activekey = null;
+        document.title = username + ' - ' + document.title;
 
-            document.title = username + ' - ' + document.title;
+        //Set the websocket to be used for the script.
 
-            //Set the websocket to be used for the script.
+        muse.config.set('websocket', 'wss://node.soundac.io');
 
-            muse.config.set('websocket','wss://api.muse.blckchnd.com');
+        //Ping the node for the latest block, this help verify connectivity.
 
-            //Ping the node for the latest block, this help verify connectivity.
+        // muse.api.streamBlockAsync(function(err, t) {
+        //   console.log(err, t.transactions);
+        // });
 
-            muse.api.streamBlockAsync(function(err, t) {
-              console.log(err, t.transactions);
-            });
-            muse.api.getAccountCount(function(err, t) {
-              console.log("Number of Accounts on Muse: " + err, t);
-            });
+        // muse.api.getAccountCount(function (err, t) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log("Number of Accounts on Muse: ", t);
+        //     }
+        // });
 
-            muse.api.getConfig(function(err, response){
-              console.log(err, response);
-            });
-
-
-            muse.api.getAccounts([username], function(err, response){
-              console.log(err, response);
-            });
+        // muse.api.getConfig(function(err, response){
+        //   console.log(err, response);
+        // });
 
 
-        </script>
-    </body>
+        // muse.api.getAccounts([username], function(err, response){
+        //   console.log(err, response);
+        // });
+
+        // data = {
+        //     username: '',
+        //     password: '',
+        //     transferTo: '',
+        //     amount: '',
+        //     memo: ''
+        // };
+
+        // muse.transferFunds(data.username, data.password, data.transferTo, data.amount, data.memo, function (err, success) {
+        //     console.log(err);
+        //     console.log(success);
+        // });
+
+    </script>
+
+</body>
+
 </html>

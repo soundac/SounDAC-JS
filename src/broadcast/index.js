@@ -35,10 +35,17 @@ museBroadcast.send = function museBroadcast$send(tx, privKeys, callback) {
         'Broadcasting transaction (transaction, transaction.operations)',
         transaction, transaction.operations
       );
-      return museApi.broadcastTransactionWithCallbackAsync(
-        () => {},
-        signedTransaction
-      ).then(() => signedTransaction);
+      return museApi.broadcastTransactionSynchronous(
+      //return museApi.broadcastTransactionWithCallbackAsync(
+        signedTransaction,
+        () => {}
+      ).then((result) => {
+        const data = Object.assign({}, result, signedTransaction);
+        data.transaction_id = result.id;
+        delete data.id;
+        // console.log(data);
+        return data;
+      });
     });
 
   resultP.nodeify(callback || noop);

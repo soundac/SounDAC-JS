@@ -339,7 +339,8 @@ facade.login = function(userName, passwordOrWif, callback)
 facade.transferFunds = function(fromUserName, passwordOrWif, toUserName, amountSixDigitsAfterPeriod, memo, callback) {
   broadcast.transfer(prepareWifOrPassword(fromUserName, passwordOrWif, "active"), fromUserName, toUserName, amountSixDigitsAfterPeriod + " 2.28.0", memo ? memo : "", function(err, result) {
     facade.lastError = err;
-    callback(result ? 1 : -1, result ? "Success" : "Error");
+    callback(err, result);
+    // callback(result ? 1 : -1, result ? "Success" : "Error");
   });
 };
 

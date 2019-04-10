@@ -404,19 +404,18 @@ facade.getBalanceObjects = function(sourceKey, callback){
 
 facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, balanceId, balanceToClaim, callback) {
   
+  try{
   var privKey = auth.fromPrivateWifTruncate(sourceKey);
   var pubKey = privKey.toPublic();
   var active = prepareWifOrPassword(targetAccount, passwordOrWif, "active");
 
   broadcast.balanceClaim(active, targetAccount, balanceId, pubKey.toString(), balanceToClaim, function(error, result) {
     facade.lastError = error;
-    if(result) {
-      callback(1, "Success", result);
-    }
-    else {
-      callback(-1, "Error", error);
-    }
+    callback(result ? 1 : -1, result ? "Success" : "Error", result);
   });
+} catch(err){
+  callback(-1, err);
+}
 
 };
 

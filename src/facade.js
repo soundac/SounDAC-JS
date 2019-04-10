@@ -402,18 +402,22 @@ facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, callback
       {
         result.forEach(function(aBalance)
         {
-          // broadcast.balance_claim(privKey.toString(), targetAccount, aBalance.id, pubKey.toString(), aBalance.balance, function(err, result) {
-          broadcast.balanceClaim(active, targetAccount, aBalance.id, pubKey.toString(), aBalance.balance, function(error, result) {
-            facade.lastError = error;
-            if(result)
-            {
-              callback(1, "Success", aBalance.balance);
-            }
-            else
-            {
-              callback(-1, "Error", error);
-            }
-          });
+
+          callback(1, "Success", aBalance);
+
+          // privKey.toString()
+          // broadcast.balanceClaim(active, targetAccount, aBalance.id, pubKey.toString(), aBalance.balance, function(error, result) {
+          //   facade.lastError = error;
+          //   if(result)
+          //   {
+          //     callback(1, "Success", aBalance.balance);
+          //   }
+          //   else
+          //   {
+          //     callback(-1, "Error", error);
+          //   }
+          // });
+
         });
       }
       else

@@ -618,7 +618,7 @@ export default [
     ]
   },
   {
-    "roles": ["active"],
+    "roles": ["owner"],
     "operation": "balance_claim",
     "params": [
       "deposit_to_account",

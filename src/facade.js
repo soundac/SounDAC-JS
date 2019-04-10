@@ -407,9 +407,9 @@ facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, balanceI
   try{
   var privKey = auth.fromPrivateWifTruncate(sourceKey);
   var pubKey = privKey.toPublic();
-  var active = prepareWifOrPassword(targetAccount, passwordOrWif, "active");
+  // var active = prepareWifOrPassword(targetAccount, passwordOrWif, "active");
 
-  broadcast.balanceClaim(active, targetAccount, balanceId, pubKey.toString(), balanceToClaim, function(error, result) {
+  broadcast.balanceClaim(privKey.toString(), targetAccount, balanceId, pubKey.toString(), balanceToClaim, function(error, result) {
     facade.lastError = error;
     callback(result ? 1 : -1, result ? "Success" : "Error", result);
   });

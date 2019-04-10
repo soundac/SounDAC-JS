@@ -399,7 +399,8 @@ facade.claimBalance = function(targetAccount, sourceKey, callback)
       {
         result.forEach(function(aBalance)
         {
-          broadcast.balance_claim(privKey.toString(), targetAccount, aBalance.id, pubKey.toString(), aBalance.balance, function(err, result) {
+          // broadcast.balance_claim(privKey.toString(), targetAccount, aBalance.id, pubKey.toString(), aBalance.balance, function(err, result) {
+          broadcast.balance_claim(targetAccount, aBalance.id, privKey.toString(), aBalance.balance, function(err, result) {
             facade.lastError = err;
             if(result)
             {

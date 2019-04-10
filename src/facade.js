@@ -386,7 +386,7 @@ facade.accountHistory = function(userName, from, count, formatter, callback)
   });
 };
 
-facade.getBalanceObjects = function(sourceKey){
+facade.getBalanceObjects = function(sourceKey, callback){
 
   var addressesToUse = auth.generateBalanceKeys([sourceKey]);
 

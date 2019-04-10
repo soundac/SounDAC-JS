@@ -400,25 +400,33 @@ facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, callback
       facade.lastError = err;
       if(result && result.length > 0)
       {
-        result.forEach(function(aBalance)
-        {
 
-          callback(1, "Success", aBalance);
+        // var balanceClaimResult = {
+        //   success = true,
+        //   result = '',
+        //   error = ''
+        // };
+
+        // result.forEach(function(aBalance) {
 
           // privKey.toString()
-          // broadcast.balanceClaim(active, targetAccount, aBalance.id, pubKey.toString(), aBalance.balance, function(error, result) {
-          //   facade.lastError = error;
-          //   if(result)
-          //   {
-          //     callback(1, "Success", aBalance.balance);
-          //   }
-          //   else
-          //   {
-          //     callback(-1, "Error", error);
-          //   }
-          // });
+          broadcast.balanceClaim(active, targetAccount, result[0].id, pubKey.toString(), result[0].balance, function(error, result) {
+            facade.lastError = error;
+            if(result)
+            {
+              // balanceClaimResult.result += ' --- ' + result;
+              callback(1, "Success", result[0].balance);
+            }
+            else
+            {
+              // balanceClaimResult.success = false;
+              // balanceClaimResult.error += ' --- ' + error;
+              callback(-1, "Error", error);
+            }
+          });
 
-        });
+        // });
+
       }
       else
       {

@@ -60,13 +60,13 @@
         //   console.log(err, t.transactions);
         // });
 
-        // muse.api.getAccountCount(function (err, t) {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         console.log("Number of Accounts on Muse: ", t);
-        //     }
-        // });
+        muse.api.getAccountCount(function (err, t) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Number of Accounts on Muse: ", t);
+            }
+        });
 
         // muse.api.getConfig(function(err, response){
         //   console.log(err, response);

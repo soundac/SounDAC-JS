@@ -386,62 +386,36 @@ facade.accountHistory = function(userName, from, count, formatter, callback)
   });
 };
 
-facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, callback)
-{
-  // try {
-
-    var addressesToUse = auth.generateBalanceKeys([sourceKey]);
-    var privKey = auth.fromPrivateWifTruncate(sourceKey);
-    var pubKey = privKey.toPublic();
-    var active = prepareWifOrPassword(targetAccount, passwordOrWif, "active");
-    //var pubKeyBase58 = pubKey.toPublicKeyStringSHA256(); // If using other call by key
-
-    api.getBalanceObjects(addressesToUse, function(err, result) {
-      facade.lastError = err;
-      if(result && result.length > 0)
-      {
-
-        // var balanceClaimResult = {
-        //   success = true,
-        //   result = '',
-        //   error = ''
-        // };
-
-        // result.forEach(function(aBalance) {
-
-          // privKey.toString()
-          broadcast.balanceClaim(active, targetAccount, result[0].id, pubKey.toString(), result[0].balance, function(error, result) {
-            facade.lastError = error;
-            if(result)
-            {
-              // balanceClaimResult.result += ' --- ' + result;
-              callback(1, "Success", result[0].balance);
-            }
-            else
-            {
-              // balanceClaimResult.success = false;
-              // balanceClaimResult.error += ' --- ' + error;
-              callback(-1, "Error", error);
-            }
-          });
-
-        // });
-
-      }
-      else
-      {
-        callback(-2, "No Balance Found", err);
-      }
-    });
-
-  // }
-  // catch(ex)
-  // {
-  //     callback(-3, "Error Processing Key", ex);
-  // }
-
+facade.getBalanceObjects = function(){
+  var addressesToUse = auth.generateBalanceKeys([sourceKey]);
+  api.getBalanceObjects(addressesToUse, function(err, result) {
+    facade.lastError = err;
+    if(result && result.length > 0) {
+      callback(1, "Balance(s) Found", result);
+    }
+    else{
+      callback(-2, "No Balance Found", err);
+    }
+  });
 };
 
+facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, balanceId, balanceToClaim, callback) {
+  
+  var privKey = auth.fromPrivateWifTruncate(sourceKey);
+  var pubKey = privKey.toPublic();
+  var active = prepareWifOrPassword(targetAccount, passwordOrWif, "active");
+
+  broadcast.balanceClaim(active, targetAccount, balanceId, pubKey.toString(), balanceToClaim, function(error, result) {
+    facade.lastError = error;
+    if(result) {
+      callback(1, "Success", result);
+    }
+    else {
+      callback(-1, "Error", error);
+    }
+  });
+
+};
 
 facade.witnessesByVote = function(qty, from, callback)
 {

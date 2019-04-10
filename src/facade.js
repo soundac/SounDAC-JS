@@ -386,8 +386,10 @@ facade.accountHistory = function(userName, from, count, formatter, callback)
   });
 };
 
-facade.getBalanceObjects = function(){
+facade.getBalanceObjects = function(sourceKey){
+
   var addressesToUse = auth.generateBalanceKeys([sourceKey]);
+
   api.getBalanceObjects(addressesToUse, function(err, result) {
     facade.lastError = err;
     if(result && result.length > 0) {
@@ -397,6 +399,7 @@ facade.getBalanceObjects = function(){
       callback(-2, "No Balance Found", err);
     }
   });
+
 };
 
 facade.claimBalance = function(targetAccount, passwordOrWif, sourceKey, balanceId, balanceToClaim, callback) {

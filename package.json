@@ -38,7 +38,7 @@
     "lodash": "^4.16.4",
     "secure-random": "^1.1.1",
     "tls": "0.0.1",
-    "ws": "^6.0.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
